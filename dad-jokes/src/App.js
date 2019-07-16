@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import NavBar from './components/NavBar'
 
-function App() {
+import LoginForm from './components/LoginReg/LoginForm'
+import Jokes from './components/Jokes/Jokes'
+import PrivateRoute from './components/PrivateRoute'
+
+function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      {props.error && <p>{props.error}</p>}
+      <Route path="/login" component={LoginForm} />
+      <PrivateRoute exact path="/" component={Jokes} />
     </div>
-  );
+  )
 }
 
-export default App;
+const mapStateToProps = state => ({
+  error: state.error,
+})
+
+export default connect(mapStateToProps)(App)
