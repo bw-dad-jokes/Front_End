@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 
 const Nav = styled.nav`
@@ -27,7 +27,9 @@ const NavBar = (props) => {
 
     return (
         <Nav>
+            <NavLink href='http://localhost:3000/'>Home</NavLink>
             <NavLink href='http://localhost:3000/login'>Login</NavLink>
+            <NavLink href='http://localhost:3000/signup'>Sign Up</NavLink>
             <NavLink onClick={logout} href='#'>Log Out</NavLink>
 
 

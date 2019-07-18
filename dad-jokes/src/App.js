@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import NavBar from './components/NavBar'
 
 import LoginForm from './components/LoginReg/LoginForm'
+import RegisterForm from './components/LoginReg/RegisterForm'
 import Jokes from './components/Jokes/Jokes'
 import PrivateRoute from './components/PrivateRoute'
 
@@ -13,6 +14,7 @@ function App(props) {
       <NavBar />
       {props.error && <p>{props.error}</p>}
       <Route path="/login" component={LoginForm} />
+      <Route path="/signup" component={RegisterForm} />
       <PrivateRoute exact path="/" component={Jokes} />
     </div>
   )

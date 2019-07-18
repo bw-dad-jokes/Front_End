@@ -56,17 +56,19 @@ const LoginForm = (props) => {
         await props.history.push('/')
     }
 
-    const isLoggedIn = localStorage.getItem('auth_token')
+    //const isLoggedIn = localStorage.getItem('auth_token')
 
-    const checkLogin = () => {
-        if (isLoggedIn) {
+    // const checkLogin = () => {
+    //     homeRedirect();
+    // }
 
-        }
-    }
+    // const loginWaitCheck = () => {
+    //     setTimeout(checkLogin, 4000);
+    // }
 
-    const loginReload = () => {
-        setTimeout(window.location.href = 'http://localhost:3000/', 3000);
-    }
+    // const homeRedirect = () => {
+    //     window.location.href = 'http://localhost:3000/';
+    // }
 
     return (
         <div>
@@ -91,7 +93,7 @@ const LoginForm = (props) => {
                         placeholder="Password"
                     />
                 </Label>
-                <Button onClick={loginReload} type="submit" value="Sign In">Sign In</Button>
+                <Button type="submit" value="Sign In">Sign In</Button>
             </LoginFromStyled>
 
         </div>

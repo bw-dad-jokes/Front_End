@@ -12,6 +12,7 @@ import {
 const initialState = {
     // auth-related
     loggingIn: false,
+    loggedIn: false,
     token: null,
     // CRUD-related
     makingAPIRequest: false,
@@ -32,12 +33,14 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loggingIn: false,
+                loggedIn: true,
                 token: action.payload,
             }
         case LOGIN_FAILURE:
             return {
                 ...state,
                 loggingIn: false,
+                loggedIn: false,
                 error: action.payload,
             }
         case API_REQUEST_START:
