@@ -8,6 +8,9 @@ const token =
 
 let nextId = 7;
 
+let loginUrl = 'https://dad-jokes-back-end.herokuapp.com/auth/login';
+let signingUrl = 'https://dad-jokes-back-end.herokuapp.com/auth/signup';
+
 let jokes = [
     {
         id: 1,
