@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { reg } from '../../actions'
 import styled from 'styled-components';
 
-const RegisterFormStyled = styled.form`
+const RegFormStyled = styled.form`
     padding: 32px 0;
     background: #fff;
     border-radius: 6px;
@@ -11,7 +11,7 @@ const RegisterFormStyled = styled.form`
     margin: 1rem auto;
     position: relative;
     width: 400px;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -90,7 +90,8 @@ const RegisterForm = (props) => {
     return (
         <div>
             <H1>Dad Jokes</H1>
-            <RegisterFormStyled id='reg' onSubmit={e => handleRegisterSubmit(e)}>
+
+            <RegFormStyled onSubmit={e => handleRegisterSubmit(e)}>
                 <H1>Register</H1>
                 <Label>
                     Username:{` `}
@@ -120,7 +121,7 @@ const RegisterForm = (props) => {
                     />
                 </Label>
                 <Button type="submit" value="Register">Register</Button>
-            </RegisterFormStyled>
+            </RegFormStyled>
         </div>
     )
 }
