@@ -55,6 +55,19 @@ export const login = authData => async dispatch => {
     }
 }
 
+export const getJokesPrivate = () => async dispatch => {
+    dispatch({ type: API_REQUEST_START })
+    try {
+        const token = localStorage.getItem('auth_token')
+        const { data } = await axios.get(`https://dad-jokes-back-end.herokuapp.com/api/jokes/private`, {
+            headers: { 'Authorization': token }
+        })
+        dispatch({ type: API_REQUEST_SUCCESS, payload: data })
+    } catch (error) {
+        dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+    }
+}
+
 export const getJokes = () => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
@@ -68,7 +81,22 @@ export const getJokes = () => async dispatch => {
     }
 }
 
-export const addJoke = joke => async dispatch => {
+// Action for adding private jokes
+export const addJokePrivate = joke => async dispatch => {
+    dispatch({ type: API_REQUEST_START })
+    try {
+        const token = localStorage.getItem('auth_token')
+        const { data } = await axios.post(`http://localhost:${port}/api/jokes`, joke, {
+            headers: { 'Authorization': token }
+        })
+        dispatch({ type: API_REQUEST_SUCCESS, payload: data })
+    } catch (error) {
+        dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+    }
+}
+
+// Action for add public jokes
+export const addJokePublic = joke => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
         const token = localStorage.getItem('auth_token')

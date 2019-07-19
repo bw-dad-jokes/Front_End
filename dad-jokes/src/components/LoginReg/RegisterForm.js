@@ -111,7 +111,7 @@ const RegisterForm = (props) => {
                         placeholder="Password"
                     />
                 </Label>
-                <Label>
+                {/* <Label>
                     Email:{` `}
                     <Input
                         type="text"
@@ -119,7 +119,7 @@ const RegisterForm = (props) => {
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Email"
                     />
-                </Label>
+                </Label> */}
                 <Button type="submit" value="Register">Register</Button>
             </RegFormStyled>
         </div>

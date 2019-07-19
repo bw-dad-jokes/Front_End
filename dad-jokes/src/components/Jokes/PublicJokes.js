@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import JokeForm from './JokeForm'
-import { getJokes, addJoke } from '../../actions'
+import { getJokes, addJokePublic } from '../../actions'
 
 const JokeStyled = styled.div`
     display: flex;
@@ -26,15 +26,15 @@ const H1 = styled.h1`
     text-align: center;
 `
 
-const Jokes = (props) => {
+const PublicJokes = (props) => {
     useEffect(() => {
         props.getJokes()
     }, [])
 
     return (
         <div>
-            <H1>Dad Jokes</H1>
-            <JokeForm addJoke={props.addJoke} />
+            <H1>Public Dad Jokes</H1>
+            <JokeForm addJoke={props.addJokePublic} />
 
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
@@ -54,5 +54,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getJokes, addJoke }
-)(Jokes)
+    { getJokes, addJokePublic }
+)(PublicJokes)
