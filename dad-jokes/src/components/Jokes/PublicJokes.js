@@ -39,9 +39,9 @@ const PublicJokes = (props) => {
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
                 <JokeStyled key={joke.id}>
-                    <p><strong>Name: </strong>{joke.name}</p>
-                    <p><strong>body: </strong>{joke.jokeBody}</p>
-                    <p><strong>Added By: </strong>{joke.addedBy}</p>
+                    <p><strong>Joke: </strong>{joke.joke_text}</p>
+                    {/* <p><strong>Public?: </strong>{joke.public}</p> */}
+                    <p><strong>Added By User: </strong>{joke.user_id}</p>
                 </JokeStyled>
             ))}
         </div>
