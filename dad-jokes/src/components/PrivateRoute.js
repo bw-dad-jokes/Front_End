@@ -5,10 +5,10 @@ import {
 } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const isLoggedIn = localStorage.getItem('auth_token')
+    const isLoggedIn = localStorage.getItem('loggedIn')
     return (
         <Route {...rest} render={props => (
-            !!isLoggedIn
+            isLoggedIn
                 ? <Component {...props} />
                 : <Redirect to="/login" />
         )} />

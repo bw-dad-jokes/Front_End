@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import JokeForm from './JokeForm'
+import JokeFormPublic from './JokeFormPublic'
 import { getJokes, addJokePublic } from '../../actions'
 
 const JokeStyled = styled.div`
@@ -34,7 +34,7 @@ const PublicJokes = (props) => {
     return (
         <div>
             <H1>Public Dad Jokes</H1>
-            <JokeForm addJoke={props.addJokePublic} />
+            <JokeFormPublic addJoke={props.addJokePublic} />
 
             {console.log(props.jokes)}
             {props.jokes.map(joke => (

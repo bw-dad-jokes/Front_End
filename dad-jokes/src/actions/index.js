@@ -1,5 +1,8 @@
 import axios from 'axios'
-const port = 3200;
+// const port = 3200;
+// const token =
+//     'esfeyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NUIhkufemQifQ';
+
 
 // action types
 export const REG_START = 'REG_START'
@@ -45,22 +48,29 @@ export const login = authData => async dispatch => {
     try {
         const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/auth/login`, authData)
         const token = data.payload
-        localStorage.setItem('auth_token', token)
+        // localStorage.setItem('auth_token', token)
+        localStorage.setItem('current_username', authData.username)
+        localStorage.setItem('current_password', authData.password)
+        localStorage.setItem('current_user', authData)
+        localStorage.setItem('loggedIn', true)
+        console.log('This is the authData ', authData);
         console.log(data.payload);
         dispatch({ type: LOGIN_SUCCESS, payload: token })
-        console.log('this is the login token' + token)
+        console.log('loggedIn' + localStorage.getItem('loggedIn'))
     } catch (error) {
         console.log(error);
         dispatch({ type: LOGIN_FAILURE, payload: error.response.data.error })
     }
 }
 
-export const getJokesPrivate = () => async dispatch => {
+export const getJokesPrivate = (authData) => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
-        const token = localStorage.getItem('auth_token')
+        const authData = localStorage.getItem('current_user')
         const { data } = await axios.get(`https://dad-jokes-back-end.herokuapp.com/api/jokes/private`, {
-            headers: { 'Authorization': token }
+            // headers: { 'Authorization': token }
+            headers: { 'Authorization': authData }
+
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })
     } catch (error) {
@@ -86,7 +96,9 @@ export const addJokePrivate = joke => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
         const token = localStorage.getItem('auth_token')
-        const { data } = await axios.post(`http://localhost:${port}/api/jokes`, joke, {
+        const privateJoke = true;
+        const publicJoke = false;
+        const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
             headers: { 'Authorization': token }
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })
@@ -100,7 +112,9 @@ export const addJokePublic = joke => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
         const token = localStorage.getItem('auth_token')
-        const { data } = await axios.post(`http://localhost:${port}/api/jokes`, joke, {
+        const privateJoke = false;
+        const publicJoke = true;
+        const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
             headers: { 'Authorization': token }
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })

@@ -1,5 +1,8 @@
 // import action types
 import {
+    REG_START,
+    REG_SUCCESS,
+    REG_FAILURE,
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -12,8 +15,11 @@ import {
 const initialState = {
     // auth-related
     loggingIn: false,
+    registering: false,
     loggedIn: false,
     token: null,
+    currentUser: null,
+
     // CRUD-related
     makingAPIRequest: false,
     jokes: [],
@@ -24,6 +30,26 @@ const initialState = {
 // export reducer function
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case REG_START:
+            return {
+                ...state,
+                registering: true,
+            }
+        case REG_SUCCESS:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: true,
+                currentUser: action.payload,
+                token: action.payload,
+            }
+        case REG_FAILURE:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: false,
+                error: action.payload,
+            }
         case LOGIN_START:
             return {
                 ...state,
@@ -34,6 +60,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 loggingIn: false,
                 loggedIn: true,
+                currentUser: action.payload,
                 token: action.payload,
             }
         case LOGIN_FAILURE:

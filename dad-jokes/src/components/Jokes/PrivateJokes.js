@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import JokeForm from './JokeForm'
+import JokeFormPrivate from './JokeFormPrivate'
 import { getJokesPrivate, addJokePrivate } from '../../actions'
 
 const JokeStyled = styled.div`
@@ -34,14 +34,14 @@ const PrivateJokes = (props) => {
     return (
         <div>
             <H1>Private Dad Jokes</H1>
-            <JokeForm addJoke={props.addJokePrivate} />
+            <JokeFormPrivate addJoke={props.addJokePrivate} />
 
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
                 <JokeStyled key={joke.id}>
-                    <p><strong>Name: </strong>{joke.name}</p>
-                    <p><strong>body: </strong>{joke.jokeBody}</p>
-                    <p><strong>Added By: </strong>{joke.addedBy}</p>
+                    <p><strong>Joke: </strong>{joke.joke_text}</p>
+                    {/* <p><strong>Public?: </strong>{joke.public}</p> */}
+                    <p><strong>Added By User: </strong>{joke.user_id}</p>
                 </JokeStyled>
             ))}
         </div>

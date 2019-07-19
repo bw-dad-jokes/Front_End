@@ -16,20 +16,20 @@ const AddJokeForm = styled.form`
     background-color: lightgray;
 `
 
-const Input = styled.input`
-  height: 30px;
-  border-radius: 5px;
-  margin: 5px;
-  margin-right: 40px;
-  padding: 5px;
-`
+// const Input = styled.input`
+//   height: 30px;
+//   border-radius: 5px;
+//   margin: 5px;
+//   margin-right: 40px;
+//   padding: 5px;
+// `
 
 const JokeTextField = styled.textarea`
-    height: 60px;
-    width: 172px;
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
     margin: 5px;
-    margin-right: 40px;
+    margin-right: 0px;
     padding: 5px;
 `
 
@@ -43,24 +43,24 @@ const Button = styled.button`
 const Label = styled.label`
   width: 350px;
   display: inline-block;
-  text-align: right;
+  text-align: center;
 `
 
-const JokeForm = props => {
-    const [name, setName] = useState('')
-    const [jokeBody, setJokeBody] = useState('')
-    const [addedBy, setAddedBy] = useState('')
+const JokeFormPrivate = props => {
+    // const [name, setName] = useState('')
+    const [joke_text, setJokeText] = useState('')
+    const [user_id, setAddedBy] = useState('')
 
     const clearForm = () => {
-        setName('')
-        setJokeBody('')
+        // setName('')
+        setJokeText('')
         setAddedBy('')
     }
 
     const handleSubmit = e => {
         e.preventDefault()
 
-        props.addJoke({ name, jokeBody, addedBy })
+        props.addJoke({ joke_text, user_id })
         clearForm()
 
 
@@ -68,7 +68,7 @@ const JokeForm = props => {
 
     return (
         <AddJokeForm onSubmit={handleSubmit}>
-            <Label>
+            {/* <Label>
                 Name:{` `}
                 <Input
                     id="name"
@@ -77,30 +77,31 @@ const JokeForm = props => {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
-            </Label>
+            </Label> */}
             <Label>
                 Joke:{` `}
-                <JokeTextField
-                    id="joke"
-                    type="text"
-                    placeholder="Yo mamma so ..."
-                    value={jokeBody}
-                    onChange={e => setJokeBody(e.target.value)}
-                />
+
             </Label>
-            <Label>
+            <JokeTextField
+                id="joke"
+                type="text"
+                placeholder="Yo mamma so ..."
+                value={joke_text}
+                onChange={e => setJokeText(e.target.value)}
+            />
+            {/* <Label>
                 Added By:{` `}
                 <Input
                     id="addedBy"
                     type="text"
                     placeholder="Who's adding the joke?"
-                    value={addedBy}
+                    value={user_id}
                     onChange={e => setAddedBy(e.target.value)}
                 />
-            </Label>
-            <Button type="submit" value="Add Joke">Add Joke</Button>
+            </Label> */}
+            <Button type="submit" value="Add Joke">Add Private Joke</Button>
         </AddJokeForm>
     )
 }
 
-export default JokeForm
+export default JokeFormPrivate
