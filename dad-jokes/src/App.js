@@ -5,17 +5,20 @@ import NavBar from './components/NavBar'
 
 import LoginForm from './components/LoginReg/LoginForm'
 import RegisterForm from './components/LoginReg/RegisterForm'
-import Jokes from './components/Jokes/Jokes'
+import PublicJokes from './components/Jokes/PublicJokes'
+import PrivateJokes from './components/Jokes/PrivateJokes'
 import PrivateRoute from './components/PrivateRoute'
 
 function App(props) {
   return (
     <div className="App">
       <NavBar />
+      {/* Here we could display the user that is logged in and/or a message stating that user is not logged in */}
       {props.error && <p>{props.error}</p>}
       <Route path="/login" component={LoginForm} />
       <Route path="/signup" component={RegisterForm} />
-      <PrivateRoute exact path="/" component={Jokes} />
+      <Route exact path="/" component={PublicJokes} />
+      <PrivateRoute exact path="/private" component={PrivateJokes} />
     </div>
   )
 }

@@ -27,7 +27,8 @@ const NavBar = (props) => {
 
     return (
         <Nav>
-            <NavLink href='http://localhost:3000/'>Home</NavLink>
+            <NavLink href='http://localhost:3000/'>Public Jokes</NavLink>
+            <NavLink href='http://localhost:3000/private'>Private Jokes</NavLink>
             <NavLink href='http://localhost:3000/login'>Login</NavLink>
             <NavLink href='http://localhost:3000/signup'>Sign Up</NavLink>
             <NavLink onClick={logout} href='#'>Log Out</NavLink>
