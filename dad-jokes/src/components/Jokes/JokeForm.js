@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
 
+
 const AddJokeForm = styled.form`
     padding: 32px 0;
     background: #fff;
@@ -48,8 +49,10 @@ const Label = styled.label`
 
 const JokeForm = props => {
     // const [name, setName] = useState('')
-    const [joke_text, setJokeText] = useState('')
-    const [user_id, setAddedBy] = useState('')
+    var [joke_text, setJokeText] = useState('')
+    var [user_id, setAddedBy] = useState('')
+    var [isPublic, setPublic] = useState('')
+    var [isPrivate, setPrivate] = useState('')
 
     const clearForm = () => {
         // setName('')
@@ -59,8 +62,19 @@ const JokeForm = props => {
 
     const handleSubmit = e => {
         e.preventDefault()
-
-        props.addJoke({ joke_text, user_id })
+        user_id = localStorage.getItem('current_userId')
+        if (document.getElementById('publicCheck').checked) {
+            isPublic = true
+        } else {
+            isPublic = false
+        }
+        if (document.getElementById('privateCheck').checked) {
+            isPrivate = true
+        } else {
+            isPrivate = false
+        }
+        user_id = Number(user_id)
+        props.addJoke({ joke_text, isPublic, isPrivate, user_id })
         clearForm()
 
 
@@ -68,16 +82,6 @@ const JokeForm = props => {
 
     return (
         <AddJokeForm onSubmit={handleSubmit}>
-            {/* <Label>
-                Name:{` `}
-                <Input
-                    id="name"
-                    type="text"
-                    placeholder="Name Your Joke"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />
-            </Label> */}
             <Label>
                 Joke:{` `}
 
@@ -86,20 +90,30 @@ const JokeForm = props => {
                 id="joke"
                 type="text"
                 placeholder="Yo mamma so ..."
-                value={joke_text}
                 onChange={e => setJokeText(e.target.value)}
+
             />
-            {/* <Label>
-                Added By:{` `}
-                <Input
-                    id="addedBy"
-                    type="text"
-                    placeholder="Who's adding the joke?"
-                    value={user_id}
-                    onChange={e => setAddedBy(e.target.value)}
+            <Label>
+                Public Joke:{` `}
+
+                <input
+                    id="publicCheck"
+                    type="checkbox"
+                    name="public"
+
                 />
-            </Label> */}
-            <Button type="submit" value="Add Joke">Add Public Joke</Button>
+            </Label>
+            <Label>
+                Private Joke:{` `}
+
+                <input
+                    id="privateCheck"
+                    type="checkbox"
+                    name="Private"
+
+                />
+            </Label>
+            <Button type="submit" value="Add Joke">Add Joke</Button>
         </AddJokeForm>
     )
 }

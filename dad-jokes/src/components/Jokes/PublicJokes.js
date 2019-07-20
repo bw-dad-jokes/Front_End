@@ -40,7 +40,7 @@ const PublicJokes = (props) => {
                 <JokeStyled key={joke.id}>
                     <p><strong>Joke: </strong>{joke.joke_text}</p>
                     {/* <p><strong>Public?: </strong>{joke.public}</p> */}
-                    <p><strong>Added By User: </strong>{joke.user_id}</p>
+                    <p><strong>Added By User: </strong>{joke.username}</p>
                 </JokeStyled>
             ))}
         </div>

@@ -1,4 +1,5 @@
 import axios from 'axios'
+//import { log } from 'util';
 // const port = 3200;
 // const token =
 //     'esfeyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NUIhkufemQifQ';
@@ -47,11 +48,11 @@ export const login = authData => async dispatch => {
     dispatch({ type: LOGIN_START })
     try {
         const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/auth/login`, authData)
-        const token = data.payload
-        // localStorage.setItem('auth_token', token)
+        const token = data.authToken
+        localStorage.setItem('auth_token', token)
         localStorage.setItem('current_username', authData.username)
         localStorage.setItem('current_password', authData.password)
-        localStorage.setItem('current_user', authData)
+        localStorage.setItem('current_userId', data.userId)
         localStorage.setItem('loggedIn', true)
         console.log('This is the authData ', authData);
         console.log(data.payload);
@@ -63,17 +64,20 @@ export const login = authData => async dispatch => {
     }
 }
 
-export const getJokesPrivate = (authData) => async dispatch => {
+export const getJokesPrivate = () => async dispatch => {
     dispatch({ type: API_REQUEST_START })
+    const authData = localStorage.getItem('current_user')
+    const token = localStorage.getItem('auth_token')
     try {
-        const authData = localStorage.getItem('current_user')
+
         const { data } = await axios.get(`https://dad-jokes-back-end.herokuapp.com/api/jokes/private`, {
             // headers: { 'Authorization': token }
-            headers: { 'Authorization': authData }
+            headers: { 'Authorization': token }
 
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })
     } catch (error) {
+        console.log(authData, token)
         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
     }
 }
@@ -91,42 +95,27 @@ export const getJokes = () => async dispatch => {
     }
 }
 
-// Action for adding private jokes
-export const addJokePrivate = joke => async dispatch => {
+// Action for adding jokes
+export const addJoke = joke => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
         const token = localStorage.getItem('auth_token')
-        const privateJoke = true;
-        const publicJoke = false;
+
         const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
             headers: { 'Authorization': token }
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })
     } catch (error) {
+        console.log(joke);
         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
     }
 }
 
-// Action for add public jokes
-export const addJokePublic = joke => async dispatch => {
-    dispatch({ type: API_REQUEST_START })
-    try {
-        const token = localStorage.getItem('auth_token')
-        const privateJoke = false;
-        const publicJoke = true;
-        const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
-            headers: { 'Authorization': token }
-        })
-        dispatch({ type: API_REQUEST_SUCCESS, payload: data })
-    } catch (error) {
-        dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
-    }
-}
 
-export const updateJoke = () => async dispatch => {
+export const updateJoke = (jokeId) => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
-        const { data } = await axios.put()
+        const { data } = await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
         // dispatch({ type: API_REQUEST_SUCCESS, payload: /* TODO */ })
         console.log(data);
     } catch (error) {
@@ -134,11 +123,11 @@ export const updateJoke = () => async dispatch => {
     }
 }
 
-export const deleteJoke = () => async dispatch => {
+export const deleteJoke = (jokeId) => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
-        const { data } = await axios.delete()
-        // dispatch({ type: API_REQUEST_SUCCESS, payload: /* TODO */ })
+        const { data } = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
+        dispatch({ type: API_REQUEST_SUCCESS, payload: jokeId /* TODO */ })
         console.log(data);
     } catch (error) {
         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })

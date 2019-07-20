@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import JokeFormPrivate from './JokeFormPrivate'
-import { getJokesPrivate, addJokePrivate } from '../../actions'
+import JokeForm from './JokeForm'
+import { getJokesPrivate, addJoke, deleteJoke, updateJoke } from '../../actions'
 
 const JokeStyled = styled.div`
     display: flex;
@@ -34,14 +34,21 @@ const PrivateJokes = (props) => {
     return (
         <div>
             <H1>Private Dad Jokes</H1>
-            <JokeFormPrivate addJoke={props.addJokePrivate} />
+            <JokeForm addJoke={props.addJoke} />
 
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
                 <JokeStyled key={joke.id}>
+
                     <p><strong>Joke: </strong>{joke.joke_text}</p>
-                    {/* <p><strong>Public?: </strong>{joke.public}</p> */}
-                    <p><strong>Added By User: </strong>{joke.user_id}</p>
+                    <p><strong>Public?: </strong>{joke.public ? ' True' : ' False'}</p>
+
+                    <p><strong>Private?: </strong>{joke.private ? ' True' : ' False'}</p>
+                    <p><strong>Added By User: </strong>{joke.username}</p>
+                    <div id="buttonGroup">
+                        <button id="Edit" type="button" >Edit</button>
+                        <button id="Delete" type="button" onClick={deleteJoke(joke)}>Delete</button>
+                    </div>
                 </JokeStyled>
             ))}
         </div>
@@ -54,5 +61,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getJokesPrivate, addJokePrivate }
+    { getJokesPrivate, addJoke, deleteJoke, updateJoke }
 )(PrivateJokes)
