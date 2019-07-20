@@ -46,7 +46,7 @@ const Label = styled.label`
   text-align: center;
 `
 
-const JokeFormPublic = props => {
+const JokeForm = props => {
     // const [name, setName] = useState('')
     const [joke_text, setJokeText] = useState('')
     const [user_id, setAddedBy] = useState('')
@@ -104,4 +104,4 @@ const JokeFormPublic = props => {
     )
 }
 
-export default JokeFormPublic
+export default JokeForm

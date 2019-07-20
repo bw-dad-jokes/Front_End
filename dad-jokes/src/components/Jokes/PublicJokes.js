@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import JokeFormPublic from './JokeFormPublic'
-import { getJokes, addJokePublic } from '../../actions'
+import JokeFormPublic from './JokeForm'
+import { getJokes } from '../../actions'
 
 const JokeStyled = styled.div`
     display: flex;
@@ -34,7 +34,6 @@ const PublicJokes = (props) => {
     return (
         <div>
             <H1>Public Dad Jokes</H1>
-            <JokeFormPublic addJoke={props.addJokePublic} />
 
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
@@ -54,5 +53,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { getJokes, addJokePublic }
+    { getJokes }
 )(PublicJokes)
