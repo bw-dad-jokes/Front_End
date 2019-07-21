@@ -101,6 +101,9 @@ export const addJoke = joke => async dispatch => {
     try {
         const token = localStorage.getItem('auth_token')
 
+        const jokeData = {
+
+        }
         const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
             headers: { 'Authorization': token }
         })
@@ -112,24 +115,40 @@ export const addJoke = joke => async dispatch => {
 }
 
 
-export const updateJoke = (jokeId) => async dispatch => {
+export const updateJoke = (joke) => async dispatch => {
     dispatch({ type: API_REQUEST_START })
     try {
-        const { data } = await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
+        const { data } = await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
         // dispatch({ type: API_REQUEST_SUCCESS, payload: /* TODO */ })
         console.log(data);
     } catch (error) {
         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
     }
+    // return (async dispatch => {
+    //     await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
+    //         .then(res => {
+    //             dispatch({ type: API_REQUEST_SUCCESS, payload: res.data })
+    //         })
+    //         .catch(error => {
+    //             dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+    //         })
+    // })
 }
 
+// Keep getting error that dispatch is not a function
 export const deleteJoke = (jokeId) => async dispatch => {
-    dispatch({ type: API_REQUEST_START })
-    try {
-        const { data } = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
-        dispatch({ type: API_REQUEST_SUCCESS, payload: jokeId /* TODO */ })
-        console.log(data);
-    } catch (error) {
-        dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
-    }
+    // dispatch({ type: API_REQUEST_START })
+    // try {
+    //     const { data } = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
+    //     dispatch({ type: API_REQUEST_SUCCESS, payload: jokeId /* TODO */ })
+    //     console.log(data);
+    // } catch (error) {
+    //     dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+    // }
+    // dispatch({ type: API_REQUEST_START })
+    // const { data } = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
+    //     .then(res => {
+    //         console.log(res);
+    //         console.log(res.data);
+    //     })
 }
