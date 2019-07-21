@@ -97,19 +97,28 @@ export const getJokes = () => async dispatch => {
 
 // Action for adding jokes
 export const addJoke = joke => async dispatch => {
+    console.log('inside addJoke action');
+
     dispatch({ type: API_REQUEST_START })
+    const authData = localStorage.getItem('current_user')
+    const token = localStorage.getItem('auth_token')
     try {
-        const token = localStorage.getItem('auth_token')
-
         const jokeData = {
-
+            "joke_text": joke.joke_text,
+            "public": joke.isPublic,
+            "private": joke.isPrivate,
+            "user_id": joke.user_id
         }
-        const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, joke, {
+        console.log('jokeData const ' + JSON.stringify(jokeData));
+
+        const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, jokeData, {
+            // headers: { 'Authorization': token }
             headers: { 'Authorization': token }
+
         })
         dispatch({ type: API_REQUEST_SUCCESS, payload: data })
     } catch (error) {
-        console.log(joke);
+        console.log(authData, token, 'Joke ' + joke.joke_text)
         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
     }
 }
@@ -151,4 +160,29 @@ export const deleteJoke = (jokeId) => async dispatch => {
     //         console.log(res);
     //         console.log(res.data);
     //     })
+}
+
+export const handleDelete = async e => {
+    e.preventDefault();
+    console.log(e.target)
+    const token = localStorage.getItem('auth_token')
+    // Promise is resolved and value is inside of the response const.
+    const response = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${e.target.name}`,
+        {
+            // headers: { 'Authorization': token }
+            headers: { 'Authorization': token }
+
+        }
+    );
+
+    console.log(e);
+    console.log(response);
+    console.log(response.data);
+    setTimeout(() => {
+        window.location = "http://localhost:3000/private";
+    }, 1000);
+}
+
+export const handleUpdate = async e => {
+    e.preventDefault();
 }

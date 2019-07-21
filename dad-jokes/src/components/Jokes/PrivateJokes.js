@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import axios from 'axios'
 import JokeForm from './JokeForm'
-import { getJokesPrivate, addJoke, deleteJoke, updateJoke } from '../../actions'
+import '../../index.css'
+import { getJokesPrivate, addJoke, deleteJoke, updateJoke, handleDelete, handleUpdate } from '../../actions'
 
 const JokeStyled = styled.div`
     display: flex;
@@ -26,57 +27,73 @@ const H1 = styled.h1`
     text-align: center;
 `
 
-const privateJokesRedirect = () => {
-    window.location = "http://localhost:3000/private";
-}
+const Options = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: darkgray;
+`
 
-const handleDelete = async e => {
-    e.preventDefault();
-    console.log(e.target)
-    const token = localStorage.getItem('auth_token')
-    // Promise is resolved and value is inside of the response const.
-    const response = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${e.target.name}`,
-        {
-            // headers: { 'Authorization': token }
-            headers: { 'Authorization': token }
+const Button = styled.button`
+  margin: 5px;
+  height: 30px;
+  border-radius: 5px;
 
-        }
-    );
+`
+const UserMsg = styled.p`
+    text-align: center;
+`
 
-    console.log(e);
-    console.log(response);
-    console.log(response.data);
-    setTimeout(() => {
-        privateJokesRedirect();
-    }, 1000);
-}
+const DummyEl = styled.div`
+    display: hidden;
+`
 
 const PrivateJokes = (props) => {
     useEffect(() => {
         props.getJokesPrivate()
     }, [])
 
+    var userMsg = localStorage.getItem('current_username') ? 'logged in as ' + localStorage.getItem('current_username') : 'no one logged in'
+    // console.log('trying to find where the jokes are ' + JSON.stringify(props.jokes))
+
+    //const testJokes = props.jokes.map(joke => joke.user_id == localStorage.getItem('current_userId'));
+    // const filteredJokes = props.jokes.filter(joke.user_id == localStorage.getItem('current_userId'))
+    //console.log(testJokes)
     return (
         <div>
             <H1>Private Dad Jokes</H1>
+            <UserMsg>{userMsg}</UserMsg>
             <JokeForm addJoke={props.addJoke} />
-
-            {console.log(props.jokes)}
+            {/* <Options>
+                <Button id="userJokesBtn" type="button">View All your Jokes</Button>
+                <Button id="allJokesBtn" type="button">View your Public Jokes</Button>
+                <Button id="allJokesBtn" type="button">View your Private Jokes</Button>
+            </Options> */}
             {props.jokes.map(joke => (
-                <JokeStyled key={joke.id}>
 
-                    <p><strong>Joke: </strong>{joke.joke_text}</p>
-                    <p><strong>Public?: </strong>{joke.public ? ' True' : ' False'}</p>
+                <JokeStyled key={joke.id} className={joke.user_id == localStorage.getItem('current_userId') ? "" : "hideOthersJokes"}>
 
-                    <p><strong>Private?: </strong>{joke.private ? ' True' : ' False'}</p>
-                    <p><strong>Added By User: </strong>{joke.username}</p>
-                    <div id="buttonGroup">
-                        <button id="Edit" name={joke.id} type="button" onClick={updateJoke(joke)}>Edit</button>
-                        <button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</button>
+                    <div>
+                        <p><strong>Joke: </strong>{joke.joke_text}</p>
+                        <p><strong>Public?: </strong>{joke.public ? ' True' : ' False'}</p>
+
+                        <p><strong>Private?: </strong>{joke.private ? ' True' : ' False'}</p>
+                        <p><strong>Added By User: </strong>{joke.username}</p>
                     </div>
+
+
+                    {joke.user_id == localStorage.getItem('current_userId') ?
+                        <div id="buttonGroup">
+                            <button id="Edit" name={joke.id} type="button" onClick={updateJoke(joke)}>Edit</button>
+                            <button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</button>
+                        </div>
+                        : null
+                    }
                 </JokeStyled>
-            ))}
-        </div>
+
+            ))
+            }
+        </div >
     )
 }
 

@@ -62,19 +62,32 @@ const JokeForm = props => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        console.log('hit add joke button');
         user_id = localStorage.getItem('current_userId')
         if (document.getElementById('publicCheck').checked) {
             isPublic = true
+            console.log('set public to true')
         } else {
             isPublic = false
+            console.log('set public to false')
         }
+
         if (document.getElementById('privateCheck').checked) {
             isPrivate = true
+            console.log('set private to true')
         } else {
             isPrivate = false
+            console.log('set private to false')
+        }
+        // Check to see if user left both options unchecked, set to public by default
+        if (!document.getElementById('privateCheck').checked && !document.getElementById('publicCheck').checked) {
+            isPublic = true;
+            console.log('user did not choose public or private, set to default public');
         }
         user_id = Number(user_id)
+        console.log('user_id is ' + user_id);
         props.addJoke({ joke_text, isPublic, isPrivate, user_id })
+
         clearForm()
 
 
