@@ -3,6 +3,12 @@ import {
     REG_START,
     REG_SUCCESS,
     REG_FAILURE,
+    DELETE_START,
+    DELETE_SUCCESS,
+    DELETE_FAILURE,
+    UPDATE_START,
+    UPDATE_SUCCESS,
+    UPDATE_FAILURE,
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -19,7 +25,9 @@ const initialState = {
     loggedIn: false,
     token: null,
     currentUser: null,
-
+    jokeToEdit: null,
+    jokeToDelete: null,
+    deleting: null,
     // CRUD-related
     makingAPIRequest: false,
     jokes: [],
@@ -48,6 +56,26 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 loggingIn: false,
                 loggedIn: false,
+                error: action.payload,
+            }
+        case DELETE_START:
+            return {
+                ...state,
+                deleting: true,
+                jokeToDelete: action.payload,
+                token: action.payload
+            }
+        case DELETE_SUCCESS:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: true,
+                currentUser: action.payload,
+                token: action.payload,
+            }
+        case DELETE_FAILURE:
+            return {
+                ...state,
                 error: action.payload,
             }
         case LOGIN_START:

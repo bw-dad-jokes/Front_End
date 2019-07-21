@@ -9,6 +9,12 @@ import axios from 'axios'
 export const REG_START = 'REG_START'
 export const REG_SUCCESS = 'REG_SUCCESS'
 export const REG_FAILURE = 'REG_FAILURE'
+export const DELETE_START = 'DELETE_START'
+export const DELETE_SUCCESS = 'DELETE_SUCCESS'
+export const DELETE_FAILURE = 'DELETE_FAILURE'
+export const UPDATE_START = 'UPDATE_START'
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
+export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const LOGIN_START = 'LOGIN_START'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -125,13 +131,13 @@ export const addJoke = joke => async dispatch => {
 
 
 export const updateJoke = (joke) => async dispatch => {
-    dispatch({ type: API_REQUEST_START })
+    dispatch({ type: UPDATE_START })
     try {
         const { data } = await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
-        // dispatch({ type: API_REQUEST_SUCCESS, payload: /* TODO */ })
+        dispatch({ type: UPDATE_SUCCESS, payload: data })
         console.log(data);
     } catch (error) {
-        dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+        dispatch({ type: UPDATE_FAILURE, payload: error.toString() })
     }
     // return (async dispatch => {
     //     await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
@@ -186,4 +192,24 @@ export const handleDelete = async e => {
 
 export const handleUpdate = async e => {
     e.preventDefault();
+    console.log(e.target);
+    const token = localStorage.getItem('auth_token');
+    const response = await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${e.target.name}`)
+    window.scrollTo(0, 0);
+}
+
+export const setJokeToForm = async e => {
+    e.preventDefault();
+    console.log(e.target);
+
+    var jokeId = e.target.name.toString();
+    var jTxtId = 'jokeText' + jokeId;
+    //console.log(jTxtId)
+    var jokeForm = document.getElementById('jokeForm');
+    var jokeText = document.getElementById(jTxtId).value;
+    var jokePublic = document.getElementById('publicCheck').value;
+    var jokePrivate = document.getElementById('privateCheck').value;
+    console.log(e.target.name)
+    console.log(jokeText);
+    window.scrollTo(0, 0);
 }

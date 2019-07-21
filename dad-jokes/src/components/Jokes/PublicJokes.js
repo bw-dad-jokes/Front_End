@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import JokeFormPublic from './JokeForm'
-import { getJokes, handleDelete, handleUpdate } from '../../actions'
+import { getJokes, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
 
 const JokeStyled = styled.div`
     display: flex;
@@ -49,7 +49,7 @@ const PublicJokes = (props) => {
 
                     {joke.user_id == localStorage.getItem('current_userId') ?
                         <div id="buttonGroup">
-                            <button id="Edit" name={joke.id} type="button" onClick={handleUpdate}>Edit</button>
+                            <button id="Edit" name={joke.id} type="button" onClick={setJokeToForm}>Edit</button>
                             <button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</button>
                         </div>
                         : null

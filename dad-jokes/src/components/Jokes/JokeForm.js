@@ -94,7 +94,7 @@ const JokeForm = props => {
     }
 
     return (
-        <AddJokeForm onSubmit={handleSubmit}>
+        <AddJokeForm id="jokeForm" onSubmit={handleSubmit}>
             <Label>
                 Joke:{` `}
 
@@ -122,7 +122,7 @@ const JokeForm = props => {
                 <input
                     id="privateCheck"
                     type="checkbox"
-                    name="Private"
+                    name="private"
 
                 />
             </Label>

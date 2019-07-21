@@ -18,6 +18,10 @@ const NavLink = styled.a`
 
 `
 
+const Search = styled.input`
+    border-radius: 4px;
+`
+
 const logout = () => {
     localStorage.clear();
     setTimeout(window.location.href = 'http://localhost:3000/', 3000);
@@ -29,6 +33,7 @@ const NavBar = (props) => {
         <Nav>
             <NavLink href='http://localhost:3000/'>Public Jokes</NavLink>
             <NavLink href='http://localhost:3000/private'>Private Jokes</NavLink>
+            <Search id="search" placeholder="Search"></Search>
             <NavLink href='http://localhost:3000/login'>Login</NavLink>
             <NavLink href='http://localhost:3000/signup'>Sign Up</NavLink>
             <NavLink onClick={logout} href='#'>Log Out</NavLink>
