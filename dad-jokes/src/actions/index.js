@@ -179,7 +179,8 @@ export const handleDelete = async e => {
     console.log(response);
     console.log(response.data);
     setTimeout(() => {
-        window.location = "http://localhost:3000/private";
+        //window.location = "http://localhost:3000/private";
+        window.location.reload(false);
     }, 1000);
 }
 
