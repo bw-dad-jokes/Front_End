@@ -70,11 +70,11 @@ const PrivateJokes = (props) => {
                 <JokeStyled key={joke.id} className={joke.user_id == localStorage.getItem('current_userId') ? "" : "hideOthersJokes"}>
 
                     <div>
-                        <p id={"jokeText" + joke.id.toString()} name={joke.joke_text + joke.id}><strong>Joke: </strong>{joke.joke_text}</p>
-                        <p id="jokePublic" name={joke.public}><strong>Public?: </strong>{joke.public ? ' True' : ' False'}</p>
+                        <p id={"jokeText" + joke.id.toString()}><strong>Joke: </strong>{joke.joke_text}</p>
+                        <p id={"jokePublic" + joke.id.toString()} name={joke.public.toString()}><strong>Public?: </strong>{joke.public ? ' True' : ' False'}</p>
 
-                        <p id="jokePrivate" name={joke.private}><strong>Private?: </strong>{joke.private ? ' True' : ' False'}</p>
-                        <p id="jokeUser" name={joke.username}><strong>Added By User: </strong>{joke.username}</p>
+                        <p id={"jokePrivate" + joke.id.toString()} name={joke.private.toString()}><strong>Private?: </strong>{joke.private ? ' True' : ' False'}</p>
+                        <p id={"jokeUser" + joke.id.toString()} name={joke.username}><strong>Added By User: </strong>{joke.username}</p>
                     </div>
 
 

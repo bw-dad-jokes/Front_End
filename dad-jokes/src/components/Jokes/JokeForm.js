@@ -126,7 +126,7 @@ const JokeForm = props => {
 
                 />
             </Label>
-            <Button type="submit" value="Add Joke">Add Joke</Button>
+            <Button id="jokeFormButton" type="submit" value="Add Joke">Add Joke</Button>
         </AddJokeForm>
     )
 }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { log } from 'util';
 //import { log } from 'util';
 // const port = 3200;
 // const token =
@@ -202,14 +203,48 @@ export const setJokeToForm = async e => {
     e.preventDefault();
     console.log(e.target);
 
+    // Get jokeid from the name attribut of the button, where I stored the id value
     var jokeId = e.target.name.toString();
+    // Combine the prefix and joke id, used to find elements by id
+    // In private jokes the element ids are contain a descriptive name
+    // along with the id of the joke, jokeText33 for example
     var jTxtId = 'jokeText' + jokeId;
-    //console.log(jTxtId)
-    var jokeForm = document.getElementById('jokeForm');
-    var jokeText = document.getElementById(jTxtId).value;
-    var jokePublic = document.getElementById('publicCheck').value;
-    var jokePrivate = document.getElementById('privateCheck').value;
+    console.log(jTxtId)
+    //var jokeForm = document.getElementById('jokeForm');
+
+    // Get the element which contains the joke text and store its inner text
+    var jokeText = document.getElementById(jTxtId).innerText;
+    // Convert this text to an array
+    jokeText = jokeText.trim().split(" ");
+    // Remove the first element which will be "Joke:"
+    jokeText.shift();
+    // Turn array back into a text string
+    var jokeTxt = jokeText.join(' ');
+    localStorage.setItem('editJokeTxt', jokeText);
+
+    var publicInfoId = 'jokePublic' + jokeId
+    var publicInfo = document.getElementById(publicInfoId).innerText;
+    publicInfo = publicInfo.trim().split(" ");
+    publicInfo.shift();
+    var publicBool = publicInfo.join(' ');
+    localStorage.setItem('editPublicBool', publicBool);
+
+    var privateInfoId = 'jokePrivate' + jokeId
+    var privateInfo = document.getElementById(privateInfoId).innerText;
+    privateInfo = privateInfo.trim().split(" ");
+    privateInfo.shift();
+    var privateBool = privateInfo.join(' ');
+    localStorage.setItem('editPrivateBool', privateBool);
+
+    document.getElementById('joke').value = jokeTxt;
+    document.getElementById('publicCheck').value = publicBool;
+    document.getElementById('privateCheck').value = privateBool;
+
+    localStorage.setItem('isEditing', true);
+    console.log(privateBool, publicBool)
+    document.getElementById('jokeFormButton').innerText = 'Edit Joke'
+
     console.log(e.target.name)
-    console.log(jokeText);
+    console.log(jokeTxt);
     window.scrollTo(0, 0);
 }
