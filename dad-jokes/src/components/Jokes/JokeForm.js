@@ -51,60 +51,85 @@ const Label = styled.label`
 `;
 
 const JokeForm = props => {
-  const [name, setName] = useState("");
-  const [jokeBody, setJokeBody] = useState("");
-  const [addedBy, setAddedBy] = useState("");
+  // const [name, setName] = useState('')
+  var [joke_text, setJokeText] = useState('')
+  var [user_id, setAddedBy] = useState('')
+  var [isPublic, setPublic] = useState('')
+  var [isPrivate, setPrivate] = useState('')
 
   const clearForm = () => {
-    setName("");
-    setJokeBody("");
-    setAddedBy("");
-  };
+      // setName('')
+      setJokeText('')
+      setAddedBy('')
+  }
 
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
+    console.log('hit add joke button');
+    user_id = localStorage.getItem('current_userId')
+    if (document.getElementById('publicCheck').checked) {
+        isPublic = true
+        console.log('set public to true')
+    } else {
+        isPublic = false
+        console.log('set public to false')
+    }
 
-    props.addJoke({ name, jokeBody, addedBy });
-    clearForm();
-  };
+    if (document.getElementById('privateCheck').checked) {
+        isPrivate = true
+        console.log('set private to true')
+    } else {
+        isPrivate = false
+        console.log('set private to false')
+    }
+    // Check to see if user left both options unchecked, set to public by default
+    if (!document.getElementById('privateCheck').checked && !document.getElementById('publicCheck').checked) {
+        isPublic = true;
+        console.log('user did not choose public or private, set to default public');
+    }
+    user_id = Number(user_id)
+    console.log('user_id is ' + user_id);
+    props.addJoke({ joke_text, isPublic, isPrivate, user_id })
+
+    clearForm()
+}
 
   return (
     <Box width={[ 1 ]}>
-      <AddJokeForm onSubmit={handleSubmit}>
-        <Label>
-          Name:{` `}
-          <Input
-            id="name"
-            type="text"
-            placeholder="Name Your Joke"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </Label>
-        <Label>
-          Joke:{` `}
-          <JokeTextField
-            id="joke"
-            type="text"
-            placeholder="Yo mamma so ..."
-            value={jokeBody}
-            onChange={e => setJokeBody(e.target.value)}
-          />
-        </Label>
-        <Label>
-          Added By:{` `}
-          <Input
-            id="addedBy"
-            type="text"
-            placeholder="Who's adding the joke?"
-            value={addedBy}
-            onChange={e => setAddedBy(e.target.value)}
-          />
-        </Label>
-        <Button variant="primary" value="Add Joke">
-          Add Joke
-        </Button>
-      </AddJokeForm>
+    <AddJokeForm id="jokeForm" onSubmit={handleSubmit}>
+            <Label>
+                Joke:{` `}
+
+            </Label>
+            <JokeTextField
+                id="joke"
+                type="text"
+                placeholder="Yo mamma so ..."
+                onChange={e => setJokeText(e.target.value)}
+
+            />
+            <Label>
+                Public Joke:{` `}
+
+                <input
+                    id="publicCheck"
+                    type="checkbox"
+                    name="public"
+
+                />
+            </Label>
+            <Label>
+                Private Joke:{` `}
+
+                <input
+                    id="privateCheck"
+                    type="checkbox"
+                    name="private"
+
+                />
+            </Label>
+            <Button id="jokeFormButton" type="submit" value="Add Joke">Add Joke</Button>
+        </AddJokeForm>
     </Box>
   );
 };

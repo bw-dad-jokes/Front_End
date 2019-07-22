@@ -1,5 +1,14 @@
 // import action types
 import {
+    REG_START,
+    REG_SUCCESS,
+    REG_FAILURE,
+    DELETE_START,
+    DELETE_SUCCESS,
+    DELETE_FAILURE,
+    UPDATE_START,
+    UPDATE_SUCCESS,
+    UPDATE_FAILURE,
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -12,7 +21,13 @@ import {
 const initialState = {
     // auth-related
     loggingIn: false,
+    registering: false,
+    loggedIn: false,
     token: null,
+    currentUser: null,
+    jokeToEdit: null,
+    jokeToDelete: null,
+    deleting: null,
     // CRUD-related
     makingAPIRequest: false,
     jokes: [],
@@ -23,6 +38,46 @@ const initialState = {
 // export reducer function
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case REG_START:
+            return {
+                ...state,
+                registering: true,
+            }
+        case REG_SUCCESS:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: true,
+                currentUser: action.payload,
+                token: action.payload,
+            }
+        case REG_FAILURE:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: false,
+                error: action.payload,
+            }
+        case DELETE_START:
+            return {
+                ...state,
+                deleting: true,
+                jokeToDelete: action.payload,
+                token: action.payload
+            }
+        case DELETE_SUCCESS:
+            return {
+                ...state,
+                loggingIn: false,
+                loggedIn: true,
+                currentUser: action.payload,
+                token: action.payload,
+            }
+        case DELETE_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+            }
         case LOGIN_START:
             return {
                 ...state,
@@ -32,12 +87,15 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loggingIn: false,
+                loggedIn: true,
+                currentUser: action.payload,
                 token: action.payload,
             }
         case LOGIN_FAILURE:
             return {
                 ...state,
                 loggingIn: false,
+                loggedIn: false,
                 error: action.payload,
             }
         case API_REQUEST_START:

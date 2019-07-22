@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import JokeForm from './JokeForm'
-import { getJokes, addJoke } from '../../actions'
+import { getJokesPrivate, getJokes, addJoke, updateJoke, deleteJoke } from '../../actions'
 import Card from '../Card';
 
 const H1 = styled.h1`
