@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import JokeStyled from './JokeStyled'
 import Button from '../../components/Button'
-import JokeFormPublic from './JokeForm'
+import JokeForm from './JokeForm'
 import { getJokes, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
 import {
     Div,
@@ -25,11 +25,12 @@ const PublicJokes = (props) => {
     var userMsg = localStorage.getItem('current_username') ? 'logged in as ' + localStorage.getItem('current_username') : 'no one logged in'
 
     return (
-        <Div>
+        <div>
             <Header border='solid' borderColor='green6' borderRadius={6} borderWidth={'1rem'} bg='green3'>
             <H1 fontSize={[5,6]} fontWeight="bold" textAlign='center' color='green9'>Public Dad Jokes</H1>
             </Header>
             <H4 fontSize={[2]} textAlign='center'>{userMsg}</H4>
+            <JokeForm />
             {console.log(props.jokes)}
             {props.jokes.map(joke => (
                 <JokeStyled key={joke.id} >
@@ -46,7 +47,7 @@ const PublicJokes = (props) => {
                     }
                 </JokeStyled>
             ))}
-        </Div>
+        </div>
     )
 }
 
