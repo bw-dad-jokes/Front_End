@@ -23,15 +23,15 @@ const NavLink = props => (
     border={'solid'}
     borderColor={'white'}
     borderRadius={[6]}
-    width={[ 1/6 ]}
+    width={[ 1/8 ]}
     textDecoration={'none'}
     display={'flex'}
     flexDirection={'row'}
     justifyContent={'center'}
     color={'white'}
-    fontSize={[ 1/2, 1, 2, 3, 4, 5 ]}
-    p={[ 1, 2, 3, 4 ]}
-    mx={[ 1, 2, 3 ]}
+    fontSize={[ 1, 2, 3, 4 ]}
+    p={[ 1, 2]}
+    mx={[ 1 ]}
     css={{
       fontWeight: "bold",
     }} 

@@ -4,28 +4,21 @@ import styled from 'styled-components'
 import axios from 'axios'
 import JokeForm from './JokeForm'
 import '../../index.css'
+import JokeStyled from './JokeStyled'
 import { getJokesPrivate, addJoke, deleteJoke, updateJoke, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
-
-const JokeStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    padding: 32px;
-    background: #fff;
-    border-radius: 6px;
-    /* height: 300px; */
-    margin: 1rem auto;
-    position: relative;
-    width: 350px;
-    
-    background-color: lightgray;
-`
-
-const H1 = styled.h1`
-    text-align: center;
-`
+import {
+    Div,
+    Header,
+    Footer,
+    Main,
+    Section,
+    Article,
+    H1,
+    H2,
+    H3,
+    H4,
+    p
+  } from "styled-system-html";
 
 const Options = styled.div`
     display: flex;
@@ -55,8 +48,8 @@ const PrivateJokes = (props) => {
     var userMsg = localStorage.getItem('current_username') ? 'logged in as ' + localStorage.getItem('current_username') : 'no one logged in'
 
     return (
-        <div>
-            <H1>Private Dad Jokes</H1>
+        <Div>
+            <H1 textAlign='center'>Private Dad Jokes</H1>
             <UserMsg>{userMsg}</UserMsg>
             <JokeForm addJoke={props.addJoke} editJoke={props.handleUpdate} />
             {/* <Options>
@@ -88,7 +81,7 @@ const PrivateJokes = (props) => {
 
             ))
             }
-        </div >
+        </Div >
     )
 }
 

@@ -10,13 +10,13 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 
 import rootReducer from './reducers'
-import { ThemeProvider } from 'styled-components'
+//import { ThemeProvider } from 'styled-components'
 import theme from './theme'
 
-export default props =>
-  <ThemeProvider theme={theme}>
-    {props.children}
-  </ThemeProvider>
+// export default props =>
+//   <ThemeProvider theme={theme}>
+//     {props.children}
+//   </ThemeProvider>
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 

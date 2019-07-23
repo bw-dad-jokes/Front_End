@@ -18,10 +18,9 @@ const err = styled.p`
 `;
 
 const App = props => (
-  <div className="App">
     <ThemeProvider theme={theme}>
       <Container width={[1]}>
-        <NavBar />
+        <NavBar width={[1]}/>
         {/* Here we could display the user that is logged in and/or a message stating that user is not logged in */}
         {props.error && <err>{props.error}</err>}
         {/* if logged in, display name */}
@@ -33,7 +32,6 @@ const App = props => (
         <PrivateRoute exact path="/private" component={PrivateJokes} />
       </Container>
     </ThemeProvider>
-  </div>
 );
 
 const mapStateToProps = state => ({
