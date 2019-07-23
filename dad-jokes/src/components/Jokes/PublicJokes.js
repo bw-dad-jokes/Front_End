@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import JokeStyled from './JokeStyled'
-
+import Button from '../../components/Button'
 import JokeFormPublic from './JokeForm'
 import { getJokes, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
 import {
@@ -40,7 +40,7 @@ const PublicJokes = (props) => {
                     {joke.user_id == localStorage.getItem('current_userId') ?
                         <div id="buttonGroup">
                             <button id="Edit" name={joke.id} type="button" onClick={setJokeToForm}>Edit</button>
-                            <button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</button>
+                            <Button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</Button>
                         </div>
                         : null
                     }
