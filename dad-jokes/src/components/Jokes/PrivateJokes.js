@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
+//import axios from "axios";
 import JokeForm from "./JokeForm";
 //import '../../index.css'
 import JokeStyled from "./JokeStyled";
@@ -18,14 +18,7 @@ import {
 import {
   Div,
   Header,
-  Footer,
-  Main,
-  Section,
-  Article,
   H1,
-  H2,
-  H3,
-  H4,
   p
 } from "styled-system-html";
 
@@ -45,9 +38,9 @@ const UserMsg = styled.p`
   text-align: center;
 `;
 
-const DummyEl = styled.div`
-  display: hidden;
-`;
+// const DummyEl = styled.div`
+//   display: hidden;
+// `;
 
 const PrivateJokes = props => {
   useEffect(() => {
@@ -77,8 +70,8 @@ const PrivateJokes = props => {
         </H1>
       </Header>
       <UserMsg>{userMsg}</UserMsg>
-      <JokeForm addJoke={props.addJoke} editJoke={props.handleUpdate} />
-      <Div
+      <JokeForm addJoke={props.addJoke.jokes} editJoke={props.handleUpdate} />
+      {/* <Div
         {...props}
         display={"flex"}
         flexDirection={"row"}
@@ -103,12 +96,12 @@ const PrivateJokes = props => {
         <Button id="allJokesBtn" type="button">
           View your Private Jokes
         </Button>
-      </Div>
+      </Div> */}
       {props.jokes.map(joke => (
         <JokeStyled
           key={joke.id}
           className={
-            joke.user_id == localStorage.getItem("current_userId")
+            joke.user_id === localStorage.getItem("current_userId")
               ? ""
               : "hideOthersJokes"
           }
@@ -139,7 +132,7 @@ const PrivateJokes = props => {
             </p>
           </Div>
 
-          {joke.user_id == localStorage.getItem("current_userId") ? (
+          {joke.user_id === localStorage.getItem("current_userId") ? (
             <Div id="buttonGroup">
               <Button
                 id="Edit"

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import {
   system,
@@ -16,10 +15,10 @@ import {
   buttonStyle
 } from "styled-system";
 
-const textDecoration = system({
-  prop: "textDecoration",
-  cssProperty: "textDecoration"
-});
+// const textDecoration = system({
+//   prop: "textDecoration",
+//   cssProperty: "textDecoration"
+// });
 
 const Link = styled.a`
   ${system({

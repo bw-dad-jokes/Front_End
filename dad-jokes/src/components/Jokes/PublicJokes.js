@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
+//import axios from 'axios'
 import styled from 'styled-components'
 import JokeStyled from './JokeStyled'
 import Button from '../../components/Button'
@@ -39,7 +39,7 @@ const PublicJokes = (props) => {
                     {/* <p><strong>Public?: </strong>{joke.public}</p> */}
                     <p><strong>Added By User: </strong>{joke.username}</p>
 
-                    {joke.user_id == localStorage.getItem('current_userId') ?
+                    {joke.user_id === localStorage.getItem('current_userId') ?
                         <Div id="buttonGroup">
                             <Button id="Edit" name={joke.id} type="button" onClick={setJokeToForm}>Edit</Button>
                             <Button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</Button>

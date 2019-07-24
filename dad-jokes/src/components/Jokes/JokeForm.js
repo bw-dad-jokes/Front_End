@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+//import styled from "styled-components";
 import Box from "../Box";
-import Card from "../Card";
+//import Card from "../Card";
 import Button from '../Button'
-import { Spring } from "react-spring";
+// import { Spring } from "react-spring";
 import theme from '../../theme'
 import {
   system,
