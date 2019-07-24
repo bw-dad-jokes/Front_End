@@ -23,23 +23,21 @@ const logout = () => {
   setTimeout((window.location.href = "http://localhost:3000/"), 3000);
 };
 
-// const Search = styled.input`
-//     border-radius: 4px;
-// `
-
 const NavBar = (props) => {
   return (
-    <Flex {...props} >
-      <Nav>
+
+      <Nav {...props} width={[1]} display='flex'>
+      <Flex {...props} width={[1]} mx={[1]} px={[1]}>
       <NavLink {...props} href='http://localhost:3000/'>Public Jokes</NavLink>
             <NavLink {...props} href='http://localhost:3000/private'>Private Jokes</NavLink>
             <NavLink {...props} href='http://localhost:3000/login'>Login</NavLink>
             <NavLink {...props} href='http://localhost:3000/signup'>Sign Up</NavLink>
             <NavLink {...props} onClick={logout} href='#'>Log Out</NavLink>
-            <Input id="search" placeholder="Search" type='text'></Input>
+            <Input {...props} id="search" placeholder="Search" type='text'></Input>
+            </Flex>
       </Nav>
-    </Flex>
+
   );
 };
-
+//{...props} 
 export default NavBar;

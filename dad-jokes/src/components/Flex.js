@@ -9,13 +9,9 @@ const Flex = props => (
     display={'flex'}
     flexDirection={'row'}
     mx={[ 0 ]}
-    p={[ 0, 1, 2, 3, 4 ]}
+    p={[ 0, 1, 2 ]}
     bg="blue4"
-    width={[ 1 ]}
     fontSize={[1, 2, 3, 4]}
-    css={{
-      fontWeight: "bold",
-    }} 
   />
 );
 

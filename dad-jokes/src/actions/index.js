@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { log } from 'util';
-const port = 3200;
+// const port = 3200;
 
 // action types
 export const REG_START = 'REG_START'
@@ -72,7 +72,6 @@ export const getJokesPrivate = () => async dispatch => {
     try {
 
         const { data } = await axios.get(`https://dad-jokes-back-end.herokuapp.com/api/jokes/private`, {
-            // headers: { 'Authorization': token }
             headers: { 'Authorization': token }
 
         })
@@ -114,7 +113,6 @@ export const addJoke = joke => async dispatch => {
         console.log('jokeData const ' + JSON.stringify(jokeData));
 
         const { data } = await axios.post(`https://dad-jokes-back-end.herokuapp.com/api/jokes`, jokeData, {
-            // headers: { 'Authorization': token }
             headers: { 'Authorization': token }
 
         })
@@ -137,23 +135,23 @@ export const updateJoke = (joke) => async dispatch => {
     } catch (error) {
         dispatch({ type: UPDATE_FAILURE, payload: error.toString() })
     }
-    // return (async dispatch => {
-    //     await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
-    //         .then(res => {
-    //             dispatch({ type: API_REQUEST_SUCCESS, payload: res.data })
-    //         })
-    //         .catch(error => {
-    //             dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
-    //         })
-    // })
+    return (async dispatch => {
+        await axios.put(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${joke.joke_id}`)
+            .then(res => {
+                dispatch({ type: API_REQUEST_SUCCESS, payload: res.data })
+            })
+            .catch(error => {
+                dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
+            })
+    })
 }
 
 // Action for deleting jokes
-// export const deleteJoke = () => async dispatch => {
+// export const deleteJoke = (jokeId) => async dispatch => {
 //     dispatch({ type: API_REQUEST_START })
 //     try {
-//         const { data } = await axios.delete()
-//         // dispatch({ type: API_REQUEST_SUCCESS, payload: /* TODO */ })
+//         const { data } = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${jokeId}`)
+//         dispatch({ type: API_REQUEST_SUCCESS, payload: res.data })
 //     } catch (error) {
 //         dispatch({ type: API_REQUEST_FAILURE, payload: error.toString() })
 //     }
@@ -183,7 +181,7 @@ export const handleDelete = async e => {
     // Promise is resolved and value is inside of the response const.
     const response = await axios.delete(`https://dad-jokes-back-end.herokuapp.com/api/jokes/${e.target.name}`,
         {
-            // headers: { 'Authorization': token }
+
             headers: { 'Authorization': token }
 
         }
@@ -210,7 +208,7 @@ export const setJokeToForm = async e => {
     e.preventDefault();
     console.log(e.target);
 
-    // Get jokeid from the name attribut of the button, where I stored the id value
+    // Get jokeid from the name attribute of the button, where I stored the id value
     var jokeId = e.target.name.toString();
     // Combine the prefix and joke id, used to find elements by id
     // In private jokes the element ids are contain a descriptive name

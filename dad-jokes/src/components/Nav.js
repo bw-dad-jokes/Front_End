@@ -26,9 +26,6 @@ const Nav = props => (
     alignItems={'center'}
     flexWrap={'no-wrap'}
     justifyItems={'space-around'}
-    width={[ '95%' ]}
-    m={[1]}
-    p={[1]}
   />
 );
 

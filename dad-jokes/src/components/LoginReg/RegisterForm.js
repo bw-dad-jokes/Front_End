@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { reg } from '../../actions'
 import styled from 'styled-components';
 
-const RegisterFormStyled = styled.form`
+const RegFormStyled = styled.form`
     padding: 32px 0;
     background: #fff;
     border-radius: 6px;
@@ -48,11 +48,10 @@ const RegisterForm = (props) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [email, setEmail] = useState('')
 
     const handleRegisterSubmit = async e => {
         e.preventDefault()
-        await props.reg({ username, password, email })
+        await props.reg({ username, password })
         await props.history.push('/')
     }
 
@@ -65,32 +64,32 @@ const RegisterForm = (props) => {
     }
 
     // Name and Email validation Function.
-    const validation = () => {
-        var name = document.getElementById("name").value;
-        var age = document.getElementById('age').value;
-        var email = document.getElementById("email").value;
-        var emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (name === '' || email === '') {
-            alert("Please fill all fields...!!!!!!");
-            return false;
-        } else if (!(email).match(emailReg)) {
-            alert("Invalid Email...!!!!!!");
-            return false;
-        } else if (isNaN(age) || age === '') {
-            alert("Please use only numbers for age!");
-            console.log('age is not a number!');
-            return false;
-        } else {
-            return true;
-        }
-    }
+    // const validation = () => {
+    //     var name = document.getElementById("name").value;
+    //     var age = document.getElementById('age').value;
+    //     var email = document.getElementById("email").value;
+    //     var emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     if (name === '' || email === '') {
+    //         alert("Please fill all fields...!!!!!!");
+    //         return false;
+    //     } else if (!(email).match(emailReg)) {
+    //         alert("Invalid Email...!!!!!!");
+    //         return false;
+    //     } else if (isNaN(age) || age === '') {
+    //         alert("Please use only numbers for age!");
+    //         console.log('age is not a number!');
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
 
 
 
     return (
         <div>
             <H1>Dad Jokes</H1>
-            <RegisterFormStyled id='reg' onSubmit={e => handleRegisterSubmit(e)}>
+            <RegFormStyled onSubmit={e => handleRegisterSubmit(e)}>
                 <H1>Register</H1>
                 <Label>
                     Username:{` `}
@@ -110,17 +109,8 @@ const RegisterForm = (props) => {
                         placeholder="Password"
                     />
                 </Label>
-                <Label>
-                    Email:{` `}
-                    <Input
-                        type="text"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        placeholder="Email"
-                    />
-                </Label>
-                <Button type="submit" value="Register">Register</Button>
-            </RegisterFormStyled>
+                <Button type="submit" value="Register">Sign Up</Button>
+            </RegFormStyled>
         </div>
     )
 }

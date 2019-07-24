@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import styled from 'styled-components'
 import JokeStyled from './JokeStyled'
 import Button from '../../components/Button'
 import JokeForm from './JokeForm'
-import { getJokes, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
+import { getJokes, getJokesPrivate, addJoke, deleteJoke, updateJoke, handleDelete, handleUpdate, setJokeToForm } from '../../actions'
 import {
     Div,
     Header,
@@ -25,8 +26,8 @@ const PublicJokes = (props) => {
     var userMsg = localStorage.getItem('current_username') ? 'logged in as ' + localStorage.getItem('current_username') : 'no one logged in'
 
     return (
-        <div>
-            <Header border='solid' borderColor='green6' borderRadius={6} borderWidth={'1rem'} bg='green3'>
+        <Div>
+            <Header {...props} border='solid' borderColor='green6' borderRadius={6} borderWidth={'1rem'} bg='green3'>
             <H1 fontSize={[5,6]} fontWeight="bold" textAlign='center' color='green9'>Public Dad Jokes</H1>
             </Header>
             <H4 fontSize={[2]} textAlign='center'>{userMsg}</H4>
@@ -39,15 +40,15 @@ const PublicJokes = (props) => {
                     <p><strong>Added By User: </strong>{joke.username}</p>
 
                     {joke.user_id == localStorage.getItem('current_userId') ?
-                        <div id="buttonGroup">
-                            <button id="Edit" name={joke.id} type="button" onClick={setJokeToForm}>Edit</button>
+                        <Div id="buttonGroup">
+                            <Button id="Edit" name={joke.id} type="button" onClick={setJokeToForm}>Edit</Button>
                             <Button id="Delete" name={joke.id} type="button" onClick={handleDelete}>Delete</Button>
-                        </div>
+                        </Div>
                         : null
                     }
                 </JokeStyled>
             ))}
-        </div>
+        </Div>
     )
 }
 
